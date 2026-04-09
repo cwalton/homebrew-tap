@@ -5,22 +5,17 @@ class Fizzy < Formula
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/basecamp/fizzy-cli/releases/download/v#{version}/fizzy-v#{version}-macos-amd64.tar.gz"
-      sha256 "1f7a4087b328709f1311684c194e82488a033f276632c0202970a29486c9179d"
+      url "https://github.com/basecamp/fizzy-cli/releases/download/v#{version}/fizzy-darwin-amd64"
+      sha256 "9a34bb62cffbccf2a1ac681f76c63a3815773a2172dbf53022d50f44de8286db"
     end
     if Hardware::CPU.arm?
-      url "https://github.com/basecamp/fizzy-cli/releases/download/v#{version}/fizzy-v#{version}-macos-arm64.tar.gz"
-      sha256 "035c9a7978280f2747309995874288094776100877073747188734994263721a"
+      url "https://github.com/basecamp/fizzy-cli/releases/download/v#{version}/fizzy-darwin-arm64"
+      sha256 "207b588854d1b610e466f62f9a67e7293a971f983cb4c34e3fd42f90e894e2de"
     end
   end
 
   def install
-    bin.install "fizzy"
-    
-    # Install shell completions
-    bash_completion.install "completions/fizzy.bash" => "fizzy"
-    zsh_completion.install "completions/fizzy.zsh" => "_fizzy"
-    fish_completion.install "completions/fizzy.fish"
+    bin.install "fizzy-darwin-#{Hardware::CPU.intel? ? "amd64" : "arm64"}" => "fizzy"
   end
 
   def caveats
